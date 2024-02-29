@@ -114,10 +114,10 @@ def execute_copy(str_cusip):
 
 
 def log(str_cusip):
-    log_csv = pd.read_csv(os.path.join(current_dir, "log.csv"))
+    log_csv = pd.read_csv(os.path.join(current_dir, "log.csv"), index_col=False)
     _log_csv = log_csv.copy(deep=True)
     _log_csv.loc[len(_log_csv)] = {"completed" : str_cusip}
-    _log_csv.to_csv(os.path.join(current_dir, "log.csv"))
+    _log_csv.to_csv(os.path.join(current_dir, "log.csv"), index=False)
     print(f"logging for {str_cusip} completed")
     return 0
 
@@ -127,3 +127,6 @@ def main(cusip_list):
         download_write_excel(cusip)
         execute_copy(cusip)
         log(cusip)
+
+
+main(cusip_list)
